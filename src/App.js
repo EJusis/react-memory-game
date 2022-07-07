@@ -22,7 +22,8 @@ function App() {
         const shuffledCards = [...cardImages, ...cardImages]
             .sort(() => Math.random() - 0.5)
             .map((card) => ({...card, id: Math.random()}))
-
+        setChoiceOne(null)
+        setChoiceTwo(null)
         setCards(shuffledCards)
         setTurns(0)
     }
@@ -31,6 +32,11 @@ function App() {
     const handleChoice = (card) => {
         choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
     }
+
+    // game display on initial visit
+    useEffect(() => {
+        shuffleCards()
+    }, [])
 
     // compare 2 selected cards
     useEffect(() => {
@@ -67,7 +73,8 @@ function App() {
 
   return (
     <div className='App'>
-      <h1>Hello</h1>
+      <h1>Match-a-Two</h1>
+        <p>Tries: {turns}</p>
         <button onClick={shuffleCards}>New Game</button>
 
         <div className="card-grid">
